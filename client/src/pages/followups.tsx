@@ -416,7 +416,7 @@ export default function FollowUps() {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="">None</SelectItem>
+                          <SelectItem value="none">None</SelectItem>
                           {clients.map((client: Client) => (
                             <SelectItem key={client.id} value={client.id.toString()}>
                               {client.name}
@@ -445,7 +445,7 @@ export default function FollowUps() {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="">None</SelectItem>
+                          <SelectItem value="none">None</SelectItem>
                           {projects.map((project: any) => (
                             <SelectItem key={project.id} value={project.id.toString()}>
                               {project.name}
