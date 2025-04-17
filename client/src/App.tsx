@@ -21,12 +21,14 @@ function Router() {
     <Switch>
       <ProtectedRoute path="/" component={Dashboard} />
       <ProtectedRoute path="/clients" component={Clients} />
+      <ProtectedRoute path="/clients/:id" component={Clients} />
       <ProtectedRoute path="/services" component={Services} />
       <ProtectedRoute path="/projects" component={Projects} />
       <ProtectedRoute path="/contacts" component={Contacts} />
       <ProtectedRoute path="/followups" component={FollowUps} />
       <ProtectedRoute path="/employees" component={Employees} />
       <ProtectedRoute path="/reports" component={Reports} />
+      <ProtectedRoute path="/settings" component={Dashboard} />
       <Route path="/auth" component={AuthPage} />
       <Route component={NotFound} />
     </Switch>

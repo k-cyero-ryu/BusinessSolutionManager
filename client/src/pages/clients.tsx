@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useLocation } from "wouter";
-import { Plus, Search, Eye, Pencil, X } from "lucide-react";
+import { Plus, Search, Eye, Pencil, X, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -34,18 +34,27 @@ import {
 } from "@/components/ui/select";
 import { DataTable } from "@/components/ui/data-table";
 import { useToast } from "@/hooks/use-toast";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Clients() {
   const [location, navigate] = useLocation();
   const { toast } = useToast();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingClient, setEditingClient] = useState<Client | null>(null);
+  const [viewingClientId, setViewingClientId] = useState<number | null>(null);
   
-  // Check if URL has new=true query param
+  // Check if URL has new=true query param or if we're viewing a specific client
   React.useEffect(() => {
     if (location.includes("new=true")) {
       setDialogOpen(true);
       navigate("/clients", { replace: true });
+    } else if (location.startsWith("/clients/")) {
+      const id = parseInt(location.split("/").pop() || "0");
+      if (!isNaN(id) && id > 0) {
+        setViewingClientId(id);
+      }
+    } else {
+      setViewingClientId(null);
     }
   }, [location, navigate]);
 
@@ -205,6 +214,82 @@ export default function Clients() {
     },
   ];
 
+  // Find current client if viewing a specific one
+  const currentClient = viewingClientId ? clients.find((c: any) => c.id === viewingClientId) : null;
+
+  // If we're viewing a specific client, render client details
+  if (viewingClientId && currentClient) {
+    return (
+      <section className="space-y-6">
+        <div className="flex items-center justify-between mb-4">
+          <Button variant="outline" onClick={() => navigate("/clients")}>
+            <ChevronLeft className="h-4 w-4 mr-2" />
+            Back to Clients
+          </Button>
+          <Button variant="outline" onClick={() => handleEditClient(currentClient)}>
+            <Pencil className="h-4 w-4 mr-2" />
+            Edit Client
+          </Button>
+        </div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <Card className="col-span-1">
+            <CardHeader>
+              <CardTitle>Client Details</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <h3 className="text-sm font-medium text-muted-foreground">Name</h3>
+                <p className="mt-1 text-lg font-medium">{currentClient.name}</p>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-muted-foreground">Phone</h3>
+                <p className="mt-1">{currentClient.phone || "N/A"}</p>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-muted-foreground">Address</h3>
+                <p className="mt-1">{currentClient.address || "N/A"}</p>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-muted-foreground">Type</h3>
+                <Badge className="mt-1" variant={currentClient.clientType === "Company" ? "info" : "success"}>
+                  {currentClient.clientType}
+                </Badge>
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card className="col-span-1 lg:col-span-2">
+            <CardHeader>
+              <CardTitle>Services</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground mb-4">Services subscribed by this client.</p>
+              {/* Future implementation: List of client services */}
+              <div className="text-center py-8 text-muted-foreground">
+                <p>No services assigned yet.</p>
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card className="col-span-1 lg:col-span-3">
+            <CardHeader>
+              <CardTitle>Projects</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground mb-4">Projects associated with this client.</p>
+              {/* Future implementation: List of client projects */}
+              <div className="text-center py-8 text-muted-foreground">
+                <p>No projects found.</p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+    );
+  }
+
+  // Otherwise, render the clients list
   return (
     <section className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
