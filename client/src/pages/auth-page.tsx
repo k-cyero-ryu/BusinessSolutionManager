@@ -51,7 +51,12 @@ export default function AuthPage() {
   });
 
   const onLoginSubmit = async (data: LoginFormValues) => {
-    await loginMutation.mutateAsync(data);
+    try {
+      console.log("Login form data:", data);
+      await loginMutation.mutateAsync(data);
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
 
   const onRegisterSubmit = async (data: RegisterFormValues) => {
