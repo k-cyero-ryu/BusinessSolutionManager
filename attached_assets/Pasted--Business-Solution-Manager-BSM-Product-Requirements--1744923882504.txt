@@ -1,0 +1,116 @@
+________________________________________
+🧠 Business Solution Manager (BSM) – Product Requirements Document
+📌 Overview
+The Business Solution Manager (BSM) is a centralized platform to manage client relationships, services, projects, employee responsibilities, and follow-up workflows. It aims to streamline business operations, improve accountability, and provide insight into work performance and client interactions.
+________________________________________
+1. 🧑‍💼 Clients Management
+Fields:
+•	Name
+•	Phone
+•	Address
+•	Client Type: Private or Company
+•	Contracted Services: Array of Service IDs
+•	Project History: Related list of Project IDs, each with associated documentation (upload support)
+Features:
+•	View all clients
+•	Link to all related services, projects, and documents
+•	CRUD operations (Create, Read, Update, Delete)
+•	Filter and search capabilities
+________________________________________
+2. 🛠️ Services Management
+Fields:
+•	Service Name
+•	Description
+•	Frequency: e.g. Weekly, Monthly, On-Demand
+•	Base Price
+Features:
+•	Service listing
+•	Add/edit/remove services
+•	Attach services to clients
+________________________________________
+3. 📁 Projects Management
+Fields:
+•	Project Name
+•	Date Requested
+•	Date of Execution
+•	Description
+•	Associated Invoice (File Upload)
+•	Cost (internal)
+•	Price (charged to client)
+•	Duration
+Features:
+•	Associate with a client
+•	Attach supporting files (estimates, invoices)
+•	Track status: Pending, In Progress, Completed
+•	Optional tagging or category support
+________________________________________
+4. 📇 New Client Contacts Management
+Fields:
+•	Contact Name
+•	Phone / Email
+•	Contacted Date
+•	Contact Method: Phone, Email, In-person
+•	Response Type: Positive, Negative, No Response
+•	Notes
+Features:
+•	Contact tracking and status
+•	Ability to convert to full client profile
+•	Follow-up task linking
+________________________________________
+5. 📌 Follow-Up Management
+Fields:
+•	Task Description
+•	Client ID
+•	Related Project or Proposal (Optional)
+•	Assigned Employee
+•	Due Date
+•	Status: Pending, Done, Canceled
+•	Notes
+•	Created By (employee or system)
+Features:
+•	Notifications/reminders
+•	Task delegation and reassignment
+•	Create from complaints, contacts, or CS requests
+•	Timeline/history tracking
+________________________________________
+6. 👥 Employee Management
+Fields:
+•	Name
+•	Email
+•	Role: Manager, Sales, Customer Service, Technician
+•	Assigned Clients
+•	Active Status
+Features:
+•	Role-based access control (RBAC)
+•	Assign clients to employees
+•	Track performance (e.g., follow-ups done, projects handled)
+________________________________________
+7. 📊 Reports & Analytics
+Report Types:
+•	Pending Follow-Ups
+•	Pending Projects
+•	Pending Requisitions
+•	Pending Proformas
+•	Pending Estimations
+•	Completed Projects (Date Range)
+•	Proformas Sent (Date Range)
+•	Approval Rate: Work sent vs. client-approved
+Features:
+•	Date filters
+•	Export as CSV/PDF
+•	Visual representation (charts/graphs with shadcn + charts lib like Recharts)
+________________________________________
+🧩 System-wide Functional Features
+•	Authentication: Secure login, password reset
+•	Role-based access: Limit what each role can see or do
+•	File uploads: Attach documents to clients, projects, services
+•	Search & Filtering: Global and scoped
+•	Notifications: For follow-ups, task deadlines, client messages
+•	Audit logs: Track who did what and when
+________________________________________
+🎨 UI/UX Guidelines
+•	Use shadcn/ui components for consistent styling
+•	Mobile-responsive design
+•	Dashboard-style navigation with left-side menu
+•	Clean, minimal interfaces
+•	Use of icons (Lucide preferred) and alerts for task status
